@@ -1,4 +1,10 @@
+
+
+
+
+
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -7,6 +13,7 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { CategoriaService } from './services/domain/categoria.service';
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
 @NgModule({
   declarations: [
@@ -16,6 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [ //lista de modulos que são importados por ionicModulo // um modulo
     //pode importar varios modulos
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   //Como a app vai iniciar
@@ -28,7 +36,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CategoriaService
   ]
 })
 export class AppModule {}
