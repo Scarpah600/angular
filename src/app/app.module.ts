@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CategoriaService } from './services/domain/categoria.service';
 import { ErrorInterceptorProvider } from '../pages/interceptors/error-interceptor';
+import { AuthService } from './services/domain/auth.service';
 
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
 @NgModule({
@@ -35,7 +36,8 @@ import { ErrorInterceptorProvider } from '../pages/interceptors/error-intercepto
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CategoriaService,
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    AuthService
   ]
 })
 export class AppModule {}
