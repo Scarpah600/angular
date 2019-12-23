@@ -9,7 +9,8 @@ import { CategoriaService } from './services/domain/categoria.service';
 import { ErrorInterceptorProvider } from '../pages/interceptors/error-interceptor';
 import { AuthService } from './services/domain/auth.service';
 import { StorageService } from './services/storage.service';
-import { ClienteService } from './services/domain/cliente.service';
+import { ClienteService } from './services/cliente.service';
+
 
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
 @NgModule({

@@ -2,8 +2,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StorageService } from '../../app/services/storage.service';
-import { clienteDTO } from '../../models/cliente.dto';
-import { ClienteService } from '../../app/services/domain/cliente.service';
+import { ClienteDTO } from '../../models/cliente.dto';
+import { ClienteService } from '../../app/services/cliente.service';
+
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { ClienteService } from '../../app/services/domain/cliente.service';
 })
 export class ProfilePage {
 
-  cliente: clienteDTO;
+   cliente:ClienteDTO;
 
   constructor(
     public navCtrl: NavController, 
@@ -24,12 +25,11 @@ export class ProfilePage {
   ionViewDidLoad() {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
-        this.clienteService.findByEmail(localUser.email)
+      this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
           this.cliente = response;
-          //buscar imagem
-        },
-        error => {});
+         },
+         error =>{})
+        }
     }
-  }
 }
