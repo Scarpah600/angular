@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthService } from './services/domain/auth.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,13 +14,17 @@ export class MyApp {
 
   pages: Array<{title: string, component: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    public AuthServ: AuthService) {
     this.initializeApp();
 
     
     this.pages = [
       { title: 'Profile', component: 'ProfilePage' },
-      { title: 'Categorias', component: 'CategoriasPage' }
+      { title: 'Categorias', component: 'CategoriasPage' },
+      { title: 'Logout', component: ''}
     ];
 
   }
@@ -31,8 +36,16 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-  
-    this.nav.setRoot(page.component);
+  openPage(page: {title:string,component:string}) {
+    switch(page.title){
+      case 'Logout':
+      this.AuthServ.logout();
+      this.nav.setRoot('HomePage');
+      break;
+
+      default:
+        this.nav.setRoot(page.component);
+    }
+   
   }
 }
