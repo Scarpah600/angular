@@ -10,6 +10,7 @@ import { ErrorInterceptorProvider } from '../pages/interceptors/error-intercepto
 import { AuthService } from './services/domain/auth.service';
 import { StorageService } from './services/storage.service';
 import { ClienteService } from './services/cliente.service';
+import { AuthInterceptorProvider } from '../pages/interceptors/auth-interceptor';
 
 
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
@@ -36,6 +37,7 @@ import { ClienteService } from './services/cliente.service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CategoriaService,
+    AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
