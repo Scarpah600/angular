@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 
-/**
- * Generated class for the SignupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -15,11 +11,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SignupPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  formGroup: FormGroup;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public formBuilder: FormBuilder) {
+
+                this.formGroup = this.formBuilder.group({
+                  nome: ['magdiel',[Validators.required,Validators.minLength(5),Validators.maxLength(120)]],
+                  email:['magdil@ti.com.br',[Validators.required,Validators.email]],
+                  tipo:['1',[Validators.required]],
+                  cpfOucpnj:['06134596280',[Validators.required,Validators.minLength(11),Validators.maxLength(14)]],
+                  senha:['123',[Validators.required]],
+                  logradouro:['Rua TI',[Validators.required]],
+                  numero:['12',[Validators.required]],
+                  complemento:['Apto 3',[]],
+                  bairro:['Copacabana',[]],
+                  cep:['1082833',[Validators.required]],
+                  telefone1:['9917243521',[Validators.required]],
+                  telefone2:['',[]],
+                  telefone3:['',[]],
+                  estadoID:[null,[Validators.required]],
+                  cidadeID:[null,[Validators.required]]
+                });
   }
   
   signupUser(){
