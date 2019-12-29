@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { CidadeService } from '../../app/services/domain/cidade.service';
 import { EstadoService } from '../../app/services/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteService } from '../../app/services/cliente.service';
 
 
 
@@ -23,13 +24,15 @@ export class SignupPage {
               public navParams: NavParams,
               public formBuilder: FormBuilder,
               public cidadeservice: CidadeService,
-              public estadoservice: EstadoService) {
+              public estadoservice: EstadoService,
+              public clienteservice: ClienteService,
+              public alertcontrol: AlertController) {
 
                 this.formGroup = this.formBuilder.group({
-                  nome: ['magdiel',[Validators.required,Validators.minLength(5),Validators.maxLength(120)]],
-                  email:['magdil@ti.com.br',[Validators.required,Validators.email]],
+                  nome: ['Felipe Scarpin',[Validators.required,Validators.minLength(5),Validators.maxLength(120)]],
+                  email:['Felipe.scarpin@ti.com.br',[Validators.required,Validators.email]],
                   tipo:['1',[Validators.required]],
-                  cpfOucpnj:['06134596280',[Validators.required,Validators.minLength(11),Validators.maxLength(14)]],
+                  cpfOuCnpj : ['74560528080', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
                   senha:['123',[Validators.required]],
                   logradouro:['Rua TI',[Validators.required]],
                   numero:['12',[Validators.required]],
@@ -39,8 +42,8 @@ export class SignupPage {
                   telefone1:['9917243521',[Validators.required]],
                   telefone2:['',[]],
                   telefone3:['',[]],
-                  estadoID:[null,[Validators.required]],
-                  cidadeID:[null,[Validators.required]]
+                  estadoId:[null,[Validators.required]],
+                  cidadeId:[null,[Validators.required]]
                 });
   }
   
@@ -49,20 +52,41 @@ export class SignupPage {
     this.estadoservice.findAll()
     .subscribe(response =>{
        this.estados = response;
-       this.formGroup.controls.estadoID.setValue(this.estados[0].id);
+       this.formGroup.controls.estadoId.setValue(this.estados[0].id);
        this.updateCidades();
     },error =>{})
   }
-
-  signupUser(){
-    console.log("Passou");
+  showInsertOk() {
+    let alert = this.alertcontrol.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
-  updateCidades(){
-    let estado_id = this.formGroup.value.estadoID;
-    this.cidadeservice.findAll(estado_id)
+  signupUser(){
+    this.clienteservice.insert(this.formGroup.value)
     .subscribe(response =>{
-      this.cidades = response;
-      this.formGroup.controls.cidadeID.setValue(null);
-    }, error =>{})
+      this.showInsertOk();
+    },
+    error =>{});
+    
+  }
+  updateCidades() {
+    let estado_id = this.formGroup.value.estadoId;
+    this.cidadeservice.findAll(estado_id)
+      .subscribe(response => {
+        this.cidades = response;
+        this.formGroup.controls.cidadeId.setValue(null);
+      },
+      error => {});
   }
 }

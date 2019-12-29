@@ -3,6 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
 import { Observable } from 'rxjs/Rx'; 
 import { StorageService } from '../../app/services/storage.service';
 import { AlertController } from 'ionic-angular';
+import { FieldMessage } from '../../models/fieldmessage';
 
 
 
@@ -33,9 +34,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case 403:
                 this.handler403();
                 break;
+
                 case 401:
                 this.handler401();
                 break;
+                
+                case 422:
+                this.handler422(errorObj);
+                break;
+
                 default:
                 this.handleDefaultError(errorObj);
 
@@ -44,6 +51,19 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             return Observable.throw(errorObj);
         }) as any;
+    }
+    handler422(errorObj){
+        let alert = this.alertController.create({
+            title: 'Erro 422: Validação',
+            message: 'Usuario Já Existe ou Cpf ou Cpnj Invalido \n'+ this.listErrors(errorObj.error),
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                     text: 'Ok'
+                }
+        ]
+    });
+    alert.present();
     }
     handler403(){
         this.storage.setLocalUser(null);
@@ -59,13 +79,23 @@ export class ErrorInterceptor implements HttpInterceptor {
         });
         alert.present();
     }
+    private listErrors(messages: FieldMessage[]) : string{
+        let s: string = '';
+        for (var i =0 ; i < messages.length; i++){
+            s = s + '<p><strong>'+ messages[i].fieldName+ "</strongs>"+ messages[i].message + '</p>';
+        }
+        return s;
+
+    }
     handler401(){
         let alert = this.alertController.create({
         title: 'Error 401 : Falha de Autenticação',
         message: 'Email ou senha incorreto',
         enableBackdropDismiss: false,
         buttons: [
-            {text: 'Ok'}
+            {
+                text: 'Ok'
+            }
         ]
     });
     alert.present();

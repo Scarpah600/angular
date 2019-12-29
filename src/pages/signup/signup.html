@@ -34,10 +34,10 @@
     </ion-list>
 
     <ion-item>
-      <ion-label stacke>Cpf ou Cpnj</ion-label>
-      <ion-input formControlName="cpfOucpnj" type="text"></ion-input>
+      <ion-label stacked>CPF ou CNPJ</ion-label>
+      <ion-input formControlName="cpfOuCnpj" type="text"></ion-input>
     </ion-item>
-    <p class="danger" *ngIf="formGroup.controls.cpfOucpnj.dirty && formGroup.controls.cpfOucpnj.errors" margin-left>Valor Inválido</p>
+    <p class="danger" *ngIf="formGroup.controls.cpfOuCnpj.dirty && formGroup.controls.cpfOuCnpj.errors" margin-left>Valor inválido</p>
     <ion-item>
       <ion-label stacke>Senha*</ion-label>
       <ion-input formControlName="senha" type="password"></ion-input>
@@ -90,13 +90,13 @@
 
     <ion-item>
       <ion-label stacke>Estado*</ion-label>
-      <ion-select formControlName="estadoID" (ionChange)="updateCidades()">
+      <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
         <ion-option *ngFor="let estado of estados; first as f "[value]="estado.id" [selected]="f">{{estado.nome}}</ion-option>
         </ion-select>
     </ion-item>
     <ion-item>
       <ion-label stacke>Cidade*</ion-label>
-      <ion-select formControlName="cidadeID">
+      <ion-select formControlName="cidadeId">
         <ion-option *ngFor="let cidade of cidades" [value]="cidade.id">{{cidade.nome}}</ion-option>
         </ion-select>
     </ion-item>
