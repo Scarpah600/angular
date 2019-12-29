@@ -20,6 +20,7 @@ export class SignupPage {
   estados: EstadoDTO[];
   cidades: CidadeDTO[];
 
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public formBuilder: FormBuilder,
@@ -28,6 +29,12 @@ export class SignupPage {
               public clienteservice: ClienteService,
               public alertcontrol: AlertController) {
 
+                  /*
+    NO CAMPO FORMGROUP COMO VOCE COLOCOU NO CLASSES DO JAVA DTO
+    VOCE PRECISA COLOCAR O NOME IGUAL ESTÁ NO CLASSE SE FOR DIFERENTE
+    PODE DAR ERRO DE INSERT OU UPDATE OU DELETE DE ACORDO COM
+    FORM GROUP
+                  */  
                 this.formGroup = this.formBuilder.group({
                   nome: ['Felipe Scarpin',[Validators.required,Validators.minLength(5),Validators.maxLength(120)]],
                   email:['Felipe.scarpin@ti.com.br',[Validators.required,Validators.email]],
