@@ -12,6 +12,7 @@ import { StorageService } from './services/storage.service';
 import { ClienteService } from './services/cliente.service';
 import { AuthInterceptorProvider } from '../pages/interceptors/auth-interceptor';
 import { ProdutoService } from './services/produto.service';
+import { CartService } from './services/cart.service';
 
 
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
@@ -43,7 +44,8 @@ import { ProdutoService } from './services/produto.service';
     AuthService,
     StorageService,
     ClienteService,
-    ProdutoService
+    ProdutoService,
+    CartService
   ]
 })
 export class AppModule {}
