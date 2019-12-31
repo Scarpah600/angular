@@ -11,6 +11,7 @@ import { AuthService } from './services/domain/auth.service';
 import { StorageService } from './services/storage.service';
 import { ClienteService } from './services/cliente.service';
 import { AuthInterceptorProvider } from '../pages/interceptors/auth-interceptor';
+import { ProdutoService } from './services/produto.service';
 
 
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
@@ -41,7 +42,8 @@ import { AuthInterceptorProvider } from '../pages/interceptors/auth-interceptor'
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
-    ClienteService
+    ClienteService,
+    ProdutoService
   ]
 })
 export class AppModule {}
