@@ -12,15 +12,17 @@ export class ProdutoDetailPage {
   
   item: ProdutoDTO;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+             public navParams: NavParams,
+             public produtoservice: ProdutoService) {
   }
 
   ionViewDidLoad() {
-      this.item = {
-        id: "1",
-        nome: "mouse",
-        preco: 80.99
-      }
+      let produtos_id = this.navParams.get('produtos_id');
+      this.produtoservice.findById(produtos_id)
+      .subscribe(response =>{
+        this.item = response;
+      },error => {});
   }
 
 }

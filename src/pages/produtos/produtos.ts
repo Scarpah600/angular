@@ -26,7 +26,7 @@ export class ProdutosPage {
       this.items = response['content'];
     },error=>{});
   }
-  showDetail(){
-    this.navCtrl.push('ProdutoDetailPage');
+  showDetail(produtos_id : string){
+    this.navCtrl.push('ProdutoDetailPage',{produtos_id: produtos_id});
   }
 }
