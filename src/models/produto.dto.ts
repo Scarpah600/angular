@@ -1,4 +1,4 @@
-export interface ProdutoDAO{
+export interface ProdutoDTO{
   id: string;
   nome : string;
   preco: number;
