@@ -27,7 +27,8 @@ export class ProfilePage {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.cliente = response;
+          //FAZER UM CAST SE TIRAR A TIPAGEM ELE VAI TRAZER OBJETO COMPLETO DO CLIENTE
+          this.cliente = response as ClienteDTO;
          },
          error =>{
            if(error.status = 403){
