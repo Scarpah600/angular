@@ -13,6 +13,7 @@ import { ClienteService } from './services/cliente.service';
 import { AuthInterceptorProvider } from '../pages/interceptors/auth-interceptor';
 import { ProdutoService } from './services/produto.service';
 import { CartService } from './services/cart.service';
+import { PedidoService } from './services/pedido.service';
 
 
 //apagar referencia do import se for deletado ou se for inserido inserir no menu
@@ -45,7 +46,8 @@ import { CartService } from './services/cart.service';
     StorageService,
     ClienteService,
     ProdutoService,
-    CartService
+    CartService,
+    PedidoService
   ]
 })
 export class AppModule {}

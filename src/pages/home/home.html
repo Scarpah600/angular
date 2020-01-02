@@ -1,9 +1,10 @@
-<ion-content padding>
-  <h3>Sistema de Pedido</h3>
+<ion-content padding class="home">
+
 
   
+  <h3>Sistema de Pedido</h3>
   <img src="assets/imgs/tela.png" alt="logo">
-
+  
   <form>
     <ion-item>
       <ion-label stacked>E-mail</ion-label>
@@ -14,7 +15,9 @@
       <ion-label stacked>Senha</ion-label>
       <ion-input [(ngModel)]="creds.senha" name="senha" type="password"> </ion-input>
     </ion-item>
+   
       <button ion-button block (click)="login()">Entrar</button>
   </form>
       <button ion-button block color="danger" (click)=signup()>Registrar</button>
+       
 </ion-content>
