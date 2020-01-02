@@ -12,8 +12,8 @@ export class ProdutoService {
     constructor(public http: HttpClient) {
     }
 
-    findByCategoria(categorias_id: string)  {
-        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categorias_id}`);
+    findByCategoria(categorias_id: string, page : number = 0, linesPerPage: number = 24)  {
+        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categorias_id}&page=${page}&linesPerPage=${linesPerPage}`);
     }
     findById(produtos_id : string){
         return this.http.get<ProdutoDTO>(`${API_CONFIG.baseUrl}/produtos/${produtos_id}`);

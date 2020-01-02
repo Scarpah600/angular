@@ -12,43 +12,62 @@ import { ProdutoService } from '../../app/services/produto.service';
 })
 export class ProdutosPage {
 
-  items: ProdutoDTO[];
+  items : ProdutoDTO[] = [];
+  page : number = 0;
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              public produtoservice: ProdutoService,
-              public loadcontrol: LoadingController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public produtoService: ProdutoService,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
     this.loadData();
   }
-  loadData(){
+
+  loadData() {
     let categoria_id = this.navParams.get('categoria_id');
     let loader = this.presentLoading();
-    this.produtoservice.findByCategoria(categoria_id)
-    .subscribe(response =>{
-      this.items = response['content'];
-      loader.dismiss();
-    },error=>{
-      loader.dismiss()
-    });
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
+      .subscribe(response => {
+        this.items = this.items.concat(response['content']);
+        loader.dismiss();
+        console.log(this.page);
+        console.log(this.items);
+      },
+      error => {
+        loader.dismiss();
+      });
   }
 
-  showDetail(produtos_id : string){
-    this.navCtrl.push('ProdutoDetailPage',{produtos_id: produtos_id});
+  
+  showDetail(produto_id : string) {
+    this.navCtrl.push('ProdutoDetailPage', {produto_id: produto_id});
   }
-  presentLoading(){
-    let carregando = this.loadcontrol.create({
-      content: "Carregando Página...",
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde..."
     });
-    carregando.present();
-    return carregando;
+    loader.present();
+    return loader;
   }
-  doRefresh(refresher){
+
+  doRefresh(refresher) {
+    this.page = 0;
+    this.items = [];
     this.loadData();
     setTimeout(() => {
       refresher.complete();
+    }, 1000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      infiniteScroll.complete();
     }, 1000);
   }
 }
